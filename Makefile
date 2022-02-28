@@ -17,3 +17,7 @@ all:
 
 install:
 	$(foreach mkf,$(wildcard */Makefile),$(call maker,$(mkf:%/Makefile=%)))
+
+update:
+	git submodule foreach git fetch
+	git submodule foreach git merge --ff main
