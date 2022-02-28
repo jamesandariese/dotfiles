@@ -1,0 +1,28 @@
+# Include makefile for subdirs.
+#
+# This can be used to pull in the
+
+include $(dir $(lastword $(MAKEFILE_LIST)))/Makefile.vars
+
+#install:
+#	$(MAKE) -C $(CURDIR) install-$(UNAME)
+
+UNAME := $(shell uname)
+print-error-about-being-a-dumbo:
+	@echo --------------------------------------------------------------------------------
+	@echo Run make install to install.
+	@echo --------------------------------------------------------------------------------
+	@exit 1 
+
+define makeinstall
+	@echo installing for $(UNAME)
+	@$(MAKE) -C $(CURDIR) install-$(UNAME)
+
+
+endef
+
+%:
+	$(if $(filter $@,install),$(call makeinstall),exit 1)
+
+install-%:
+	@echo "skipping $(notdir $(CURDIR)) for $(@:install-%=%)"
