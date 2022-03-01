@@ -1,7 +1,7 @@
 include Makefile.vars
 
 define maker
-	$(MAKE) -C $(1) install
+	[ -f $(1)/Makefile.dotfiles -a $(2) = Makefile ] || $(MAKE) -b -f $(2) -C $(1) install
 
 
 endef
@@ -16,4 +16,5 @@ all:
 	@exit 1
 
 install:
-	$(foreach mkf,$(wildcard */Makefile),$(call maker,$(mkf:%/Makefile=%)))
+	$(foreach mkf,$(wildcard */Makefile.dotfiles),$(call maker,$(mkf:%/Makefile.dotfiles=%),Makefile.dotfiles))
+	$(foreach mkf,$(wildcard */Makefile),$(call maker,$(mkf:%/Makefile=%),Makefile))

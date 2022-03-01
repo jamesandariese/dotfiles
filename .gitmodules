@@ -1,3 +1,6 @@
 [submodule "git-config"]
 	path = git-config
 	url = https://github.com/jamesandariese/git-config
+[submodule "nvim-config"]
+	path = nvim-config
+	url = https://github.com/jamesandariese/nvim-config

@@ -2,6 +2,7 @@
 #
 # This can be used to pull in the
 
+CALLER := $(word $(shell expr $(words $(MAKEFILE_LIST)) - 1),$(MAKEFILE_LIST))
 include $(dir $(lastword $(MAKEFILE_LIST)))/Makefile.vars
 
 #install:
@@ -16,7 +17,7 @@ print-error-about-being-a-dumbo:
 
 define makeinstall
 	@echo installing for $(UNAME)
-	@$(MAKE) -C $(CURDIR) install-$(UNAME)
+	$(MAKE) -mmm -f $(CALLER) -C $(CURDIR) install-$(UNAME)
 
 
 endef
@@ -25,4 +26,8 @@ endef
 	$(if $(filter $@,install),$(call makeinstall),exit 1)
 
 install-%:
-	@echo "skipping $(notdir $(CURDIR)) for $(@:install-%=%)"
+	@$(if $<,echo "skipping $(notdir $(CURDIR)) for $(@:install-%=%)",true)
+# if $< works because the only time we'd get here when a target doesn't exist
+# but when commands are expected to be run is if this target is reached even
+# when prerequisite targets are used to combine things (like Darwin and linux
+# to unix)
