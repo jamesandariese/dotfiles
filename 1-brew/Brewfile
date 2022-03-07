@@ -1,0 +1,11 @@
+tap "homebrew/cask"
+
+brew "util-linux"
+brew "wget"
+brew "stylua"
+brew "prettier"
+brew "ripgrep"
+brew "fd"
+brew "black"
+brew "neovim"
+brew "neovim-remote"
