@@ -1,5 +1,7 @@
 include ../Makefile.include
 
+export HOMEBREW_CASK_OPTS = --appdir=$(HOME)/Applications --fontdir=$(HOME)/Library/Fonts
+
 install-Darwin:
 	[ -d $(HOME)/homebrew ] || git clone https://github.com/Homebrew/brew $(HOME)/homebrew
 	[ $${FULL} ] || [ ! -d $(HOME)/homebrew ] || exit 0 \

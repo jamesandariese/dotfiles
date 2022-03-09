@@ -1,7 +1,9 @@
 include Makefile.vars
 
 define maker
-	[ -f $(1)/Makefile.dotfiles -a $(2) = Makefile ] || $(MAKE) -b -f $(2) -C $(1) install
+	if [ -f $$HOME/.sh-fragments/source.sh ];then . $$HOME/.sh-fragments/source.sh;else true;fi && \
+	[ -f $(1)/Makefile.dotfiles -a $(2) = Makefile ] || \
+	$(MAKE) -b -f $(2) -C $(1) install
 
 
 endef
