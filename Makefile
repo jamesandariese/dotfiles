@@ -18,5 +18,6 @@ all:
 	@exit 1
 
 install:
+	git verify-commit HEAD
 	$(foreach mkf,$(wildcard */Makefile.dotfiles),$(call maker,$(mkf:%/Makefile.dotfiles=%),Makefile.dotfiles))
 	$(foreach mkf,$(wildcard */Makefile),$(call maker,$(mkf:%/Makefile=%),Makefile))
